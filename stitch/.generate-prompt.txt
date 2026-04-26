@@ -1,0 +1,235 @@
+# Ürün Gereksinimleri Dokümanı (PRD) — pipeline-sayac-130642
+
+## 1. Genel Bakış
+
+**pipeline-sayac-130642**, kullanıcının artırım, azaltım ve sıfırlama işlemleri yapabildiği, anlık sayı görüntüleyen ve değerini tarayıcıda kalıcı olarak saklayan minimal bir sayac uygulamasıdır. Türkçe arayüze sahiptir. Hedef kitle genel kullanıcı kitlesidir — her yaştan, her platformdan (mobil + masaüstü) erişilebilir olması hedeflenir. Uygulama tek sayfa (SPA) olarak Vite + React 18 + TypeScript ile geliştirilir. Veritabanı gerektirmez; state ve kalıcılık tamamen client-side'dır.
+
+---
+
+## 2. Hedefler
+
+1. **Fonksiyonel doğruluk** — Arttır, azalt, sıfırla butonları her koşulda doğru çalışmalı.
+2. **localStorage kalıcılığı** — Sayfa yenilense veya tarayıcı kapatılsa bile son değer korunmalı.
+3. **Klavye desteği** — `+` veya `=` tuşları arttırım, `-` tuşu azaltım için çalışmalı.
+4. **Erişilebilirlik** — WCAG 2.1 AA uyumlu, klavye navigasyonu tam, ekran okuyucu uyumlu.
+5. **Responsive tasarım** — Mobil 320px'den masaüstü 1920px'e kadar tüm ekranlarda kullanılabilir.
+6. **Hızlı yükleme** — İlk yükleme 2 saniyeden kısa, buton etkileşimi anlık (<100ms).
+
+---
+
+## 3. Tech Stack Detayı
+
+| Katman | Seçim |
+|--------|-------|
+| Framework | React 18.3 (functional components + hooks) |
+| Build | Vite 5.x |
+| Dil | TypeScript 5.x (strict mode) |
+| Styling | CSS Modules veya scoped CSS (harici bağımlılık yok) |
+| State | useState + useEffect (built-in React, Redux/Zustand gereksiz) |
+| Kalıcılık | window.localStorage API |
+| Routing | Yok (tek sayfa) |
+| Icon | Lucide React (artı/eksi/sıfırla ikonları) |
+| Test | Vitest + React Testing Library |
+
+---
+
+## 4. Fonksiyonel Gereksinimler
+
+### 4.1 Sayacı Arttırma (+1)
+- Her "Arttır" butonuna tıklama sayaç değerini 1 artırır.
+- Negatif sayılara izin verilir (örneğin -5'ten 1 artırılınca -4 olur).
+- Üst sınır yoktur.
+- Başarılı etkileşimde görsel bir feedback (kısa scale animasyonu) verilir.
+
+**Hata durumu:** localStorage okunamadığında sessizce 0 ile başlar, konsola uyarı yazılır.
+
+### 4.2 Sayacı Azaltma (-1)
+- Her "Azalt" butonuna tıklama sayaç değerini 1 azaltır.
+- Negatif değerler desteklenir.
+- Alt sınır yoktur.
+- "Azalt" butonu sayaç 0'a eşitken de aktif kalır (negatif değerlere izin vardır).
+
+### 4.3 Sayacı Sıfırlama
+- "Sıfırla" butonu sayacı 0'a döndürür.
+- localStorage içindeki değeri de 0 olarak günceller.
+- Kullanıcıya bir kez tıklandığını görsel olarak onaylar (buton kısa süreli highlight).
+
+### 4.4 Sayı Görüntüleme
+- Sayacın mevcut değeri büyük, merkezi bir sayı olarak gösterilir.
+- Font büyüklüğü sayacın hanesine göre dinamik olarak ayarlanır (1-3 hane: büyük; 4+ hane: biraz küçük; 7+ hane: daha küçük).
+- Pozitif, negatif ve sıfır için farklı renk kodlaması: pozitif → primary, sıfır → text, negatif → error/secondary.
+
+### 4.5 Klavye Kısayolları
+- `+` veya `=` tuşları → Arttır
+- `-` tuşu → Azalt
+- `r` veya `R` tuşu → Sıfırla
+- `Escape` → focus'u sayac alanından kaldırır (focus trap yok, doğal davranış)
+- Klavye kısayolları yalnızca input/textarea odaklı değilken çalışır (sayfa genelinde).
+
+### 4.6 localStorage Kalıcılığı
+- Sayac değeri her değişiklikte (arttır/azalt/sıfırla) localStorage'a `pipeline-sayac-value` anahtarıyla yazılır.
+- Sayfa yüklendiğinde localStorage'dan bu değer okunur. Değer yoksa veya geçersiz ise 0 kullanılır.
+- Geçersiz veri durumunda: konsola uyarı, state 0, localStorage temizlenir.
+
+### 4.7 Responsive Davranış
+- Mobilde (<640px): butonlar dikey stack, büyük dokunma hedefleri (min 44x44px)
+- Tablet/masaüstünde (>=640px): butonlar yatay sıra, ortalı içerik
+
+---
+
+## 5. Veri Modeli
+
+### Entity: Counter
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| value | number | Sayacın mevcut tamsayı değeri |
+| lastUpdated | ISO8601 string | Son güncelleme zamanı (opsiyonel, debugging için) |
+
+### localStorage Schema
+```
+Key: "pipeline-sayac-value"
+Value: JSON string — örn. "42" veya "-7"
+```
+Geçersiz okuma durumunda varsayılan: `0`
+
+---
+
+## 6. UI/UX Gereksinimler
+
+### 6.1 Design System
+
+**Aesthetic:** Playful — yumuşak köşeler, canlı ama göz yormayan renkler, minimal ama sıcak.
+
+**Renk Paleti:**
+| Rol | Hex | Kullanım |
+|-----|-----|----------|
+| Primary | `#6366F1` | Arttır butonu, pozitif sayı, odak hali |
+| Secondary | `#A78BFA` | Hover state, dekoratif öğeler |
+| Background | `#F8FAFC` | Sayfa arka planı |
+| Surface | `#FFFFFF` | Kart/panel arka planı |
+| Text | `#1E293B` | Ana metin, sayı değeri |
+| Border | `#E2E8F0` | Kart kenarlıkları, ayırıcılar |
+| Success | `#10B981` | (opsiyonel) |
+| Error/Warning | `#EF4444` | Negatif sayılar, hata durumları |
+| Disabled | `#CBD5E1` | Pasif butonlar |
+
+**Tipografi:**
+| Rol | Font | Fallback |
+|-----|------|---------|
+| Heading / Counter Display | Inter, 700 | system-ui, sans-serif |
+| Body / Labels | Inter, 400/500 | system-ui, sans-serif |
+
+**Icon Library:** Lucide React
+- `Plus` → Arttır
+- `Minus` → Azalt
+- `RotateCcw` → Sıfırla
+
+### 6.2 Spacing & Components
+
+**Spacing Scale:** 4 / 8 / 12 / 16 / 24 / 32 / 48 px
+
+**Border Radius:**
+- Butonlar: `8px`
+- Kart/Container: `12px`
+- Input (yok, ama ileride eklenecek): `6px`
+
+**Shadows:**
+- Kart: `0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)`
+- Hover: `0 4px 6px rgba(0,0,0,0.1)`
+
+**Buton Pattern:**
+- Minimum touch target: 44x44 px
+- Aktif durumda: scale(0.97) transform
+- Fokus durumu: 2px solid primary color, offset 2px
+
+---
+
+## 7. Non-Functional Requirements
+
+### 7.1 Performans
+- İlk yükleme (LCP) < 1.5 sn (splash/hidrate gecikmesi yok, minimal JS)
+- Buton etkileşimi → state güncellemesi < 50ms (gerçek DOM güncellemesi)
+- Lighthouse Performance >= 95 (mobil)
+- Bundle size hedefi: < 80KB gzipped (sadece React + minimal deps)
+
+### 7.2 Erişilebilirlik (WCAG 2.1 AA)
+- Tüm butonların `aria-label` ile ekran okuyucu açıklaması ("Sayacı arttır", "Sayacı azalt", "Sayacı sıfırla")
+- `role="status"` ile ekran okuyucuya sayac değeri duyurusu (value değiştiğinde)
+- Tüm interactive elementlerde görünür fokus indikatörü (outline: 2px solid primary; outline-offset: 2px)
+- Renk kontrastı: text on background >= 4.5:1, large text >= 3:1
+- Klavye ile tam navigasyon: Tab/Shift+Tab ile butonlar arası geçiş, Enter/Space ile tetikleme
+- Reduced motion desteği: `prefers-reduced-motion` medya sorgusunda animasyon devre dışı
+
+### 7.3 Tarayıcı Desteği
+- Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- iOS Safari 14+, Android Chrome 90+
+- Responsive: 320px (mobile S) → 1920px (desktop 4K)
+- localStorage desteği olmayan tarayıcılar için graceful degradation (değer 0 olarak çalışır)
+
+---
+
+## 8. Proje Yapısı
+
+```
+src/
+├── components/
+│   ├── CounterDisplay.tsx     # Sayı gösterim bileşeni
+│   ├── CounterDisplay.module.css
+│   ├── ActionButton.tsx       # Arttır/Azalt/Sıfırla butonları
+│   ├── ActionButton.module.css
+│   └── CounterApp.tsx         # Ana layout
+├── hooks/
+│   └── useCounter.ts          # Sayac state + localStorage mantığı
+├── utils/
+│   └── storage.ts             # localStorage okuma/yazma helper
+├── types/
+│   └── counter.ts             # TypeScript tipler
+├── App.tsx
+├── main.tsx
+└── index.css                  # Global reset + CSS değişkenleri
+```
+
+---
+
+## 9. Window State (testing/dogfood için)
+
+```ts
+window.app = {
+  state: 'idle',           // idle | animating
+  counter: 0,              // mevcut sayac değeri
+  history: []               // son işlemler (opsiyonel)
+}
+```
+
+---
+
+## 10. Ekranlar
+
+| # | Ekran Adı | Tür | Açıklama |
+|---|-----------|-----|----------|
+| 1 | Ana Sayfa | main | Sayac değeri, arttır/azalt/sıfırla butonları, klavye desteği |
+| 2 | Boş Durum | empty | localStorage'da değer yoksa varsayılan 0 ile açılış |
+| 3 | Hata Durumu | error | localStorage erişim hatası oluştuğunda kullanıcıya bilgi gösterimi |
+
+**Min 3 satır gereksinimi karşılandı.**
+
+---
+
+## Özet
+
+Bu PRD, pipeline-sayac-130642 projesinin kapsamını net çizmiştir:
+- **vite-react** stack, TypeScript strict, CSS Modules ile minimal bağımlılıkla geliştirme.
+- **DB_REQUIRED: none** — tüm state client-side, localStorage ile kalıcılık.
+- **3 story'den az** hedefi: Arttır/Azalt/Sıfırla + localStorage + klavye = muhtemelen 2-3 story.
+- Turkish UI, WCAG 2.1 AA erişilebilirlik, 320px→1920px responsive覆盖.
+
+Generate a SEPARATE screen design for EVERY page, view, modal, dialog, tab panel, and settings screen described in this PRD. Do NOT skip ANY screen — even if it seems minor.
+
+MANDATORY SCREENS:
+- If the PRD mentions "settings" or "ayarlar" → generate a Settings screen
+- If the PRD mentions tabs or bottom navigation → generate EACH tab view as a separate screen
+- If the PRD mentions modals (statistics, help, share, confirmation) → generate each as a separate screen
+- If the PRD mentions error states, empty states, loading states → generate those too
+- Generate at least as many screens as there are distinct views/pages/modals in the PRD
+
+All visible text must be in Turkish. Use a dark, modern theme.

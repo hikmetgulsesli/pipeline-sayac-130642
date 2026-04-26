@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hata Durumu - Pipeline Sayaç</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-tint": "#494bd6",
+                        "surface-bright": "#f7f9fb",
+                        "tertiary": "#904900",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "secondary-fixed-dim": "#cebdff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-surface": "#2d3133",
+                        "primary-fixed": "#e1e0ff",
+                        "on-secondary-fixed-variant": "#4f319c",
+                        "on-background": "#191c1e",
+                        "outline": "#767586",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#703700",
+                        "tertiary-fixed": "#ffdcc5",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e8ddff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-container": "#3f1e8c",
+                        "on-primary-fixed": "#07006c",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "primary": "#4648d4",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-error-container": "#93000a",
+                        "secondary": "#674bb5",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "surface-variant": "#e0e3e5",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container": "#eceef0",
+                        "tertiary-container": "#b55d00",
+                        "background": "#f7f9fb",
+                        "secondary-container": "#ab8ffe",
+                        "inverse-primary": "#c0c1ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fffbff",
+                        "on-secondary-fixed": "#21005e",
+                        "on-surface-variant": "#464554",
+                        "on-tertiary-fixed": "#301400",
+                        "primary-container": "#6063ee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-center p-4">
+<!-- Top Navigation Placeholder (Suppressed per logic as this is an error state, but kept minimal for context if needed, opting to hide full nav for focus) -->
+<main class="w-full max-w-md flex flex-col gap-8">
+<!-- TopAppBar (Minimal for context, no full nav) -->
+<header class="docked full-width top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl no-border bg-slate-50/50 dark:bg-slate-800/50 shadow-sm shadow-indigo-500/5 flex justify-between items-center w-full px-6 py-4 rounded-xl mb-4">
+<h1 class="text-2xl font-bold bg-gradient-to-br from-indigo-600 to-violet-500 bg-clip-text text-transparent">Pipeline Sayaç</h1>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-indigo-600 dark:text-indigo-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors rounded-full p-2 cursor-pointer" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Error Banner / Card -->
+<div class="bg-error-container text-on-error-container rounded-xl p-6 flex flex-col items-center text-center shadow-[0_8px_32px_rgba(186,26,26,0.1)] border border-error/20">
+<span class="material-symbols-outlined text-error text-5xl mb-4" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h2 class="font-headline text-xl font-bold mb-2 text-error">Hata Durumu</h2>
+<p class="font-body text-[0.875rem] tracking-[0.01em] text-on-error-container">Verilere ulaşılamadı. Sayaç varsayılan değerle (0) çalışmaya devam edecek.</p>
+</div>
+<!-- The Hero Counter (Signature Component) - Reset State -->
+<div class="bg-surface-bright rounded-xl p-10 flex flex-col items-center justify-center relative overflow-hidden shadow-[0_8px_32px_rgba(25,28,30,0.06)]">
+<!-- Subtle gradient background -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent z-0"></div>
+<div class="relative z-10 flex flex-col items-center">
+<span class="font-display text-[3.5rem] font-bold text-on-surface leading-none mb-2">0</span>
+<span class="font-label text-[0.75rem] font-medium text-on-surface-variant uppercase tracking-wider">Varsayılan Sayaç</span>
+</div>
+</div>
+<!-- Counter Controls (Secondary focus) -->
+<div class="flex gap-4 w-full justify-center mt-4">
+<button aria-label="Decrease" class="bg-secondary-container text-on-secondary-container rounded-md w-16 h-16 flex items-center justify-center hover:bg-surface-container-highest transition-colors shadow-[0_8px_32px_rgba(25,28,30,0.04)]">
+<span class="material-symbols-outlined text-2xl">remove</span>
+</button>
+<button aria-label="Increase" class="bg-primary text-on-primary rounded-md w-16 h-16 flex items-center justify-center shadow-[0_8px_32px_rgba(70,72,212,0.3)] relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-[1px] bg-white/10"></div>
+<span class="material-symbols-outlined text-3xl transition-transform group-hover:scale-110">add</span>
+</button>
+</div>
+</main>
+</body></html>

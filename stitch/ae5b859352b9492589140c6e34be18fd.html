@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pipeline Sayaç - Empty State</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-tint": "#494bd6",
+                        "surface-bright": "#f7f9fb",
+                        "tertiary": "#904900",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "secondary-fixed-dim": "#cebdff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-surface": "#2d3133",
+                        "primary-fixed": "#e1e0ff",
+                        "on-secondary-fixed-variant": "#4f319c",
+                        "on-background": "#191c1e",
+                        "outline": "#767586",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#703700",
+                        "tertiary-fixed": "#ffdcc5",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#e8ddff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-container": "#3f1e8c",
+                        "on-primary-fixed": "#07006c",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "primary": "#4648d4",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-error-container": "#93000a",
+                        "secondary": "#674bb5",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "surface-variant": "#e0e3e5",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container": "#eceef0",
+                        "tertiary-container": "#b55d00",
+                        "background": "#f7f9fb",
+                        "secondary-container": "#ab8ffe",
+                        "inverse-primary": "#c0c1ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fffbff",
+                        "on-secondary-fixed": "#21005e",
+                        "on-surface-variant": "#464554",
+                        "on-tertiary-fixed": "#301400",
+                        "primary-container": "#6063ee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl docked full-width top-0 no-border bg-slate-50/50 dark:bg-slate-800/50 shadow-sm shadow-indigo-500/5 flex justify-between items-center w-full px-6 py-4 sticky z-50 hidden md:flex">
+<div class="text-2xl font-bold bg-gradient-to-br from-indigo-600 to-violet-500 bg-clip-text text-transparent">
+            Pipeline Sayaç
+        </div>
+<nav class="flex gap-6 items-center">
+<a class="text-indigo-600 dark:text-indigo-400 font-bold Headline-SM text-xl Inter tracking-tight" href="#">Sayaç</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-2 rounded-lg" href="#">Geçmiş</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors px-3 py-2 rounded-lg" href="#">Ayarlar</a>
+</nav>
+<div class="text-indigo-600 dark:text-indigo-400 flex items-center justify-center p-2 rounded-full hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer scale-95 active:transition-transform">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Mobile Top Header (Brand Only) -->
+<header class="md:hidden flex justify-between items-center w-full px-6 py-6 z-50">
+<div class="text-2xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent tracking-tight">
+            Pipeline Sayaç
+        </div>
+<div class="text-on-surface-variant flex items-center justify-center p-2 rounded-full cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-6 pb-32 md:pb-12 pt-8">
+<!-- Hero Counter (Empty State) -->
+<div class="w-full max-w-md flex flex-col items-center mb-12">
+<!-- Subtle backdrop gradient -->
+<div class="relative w-full flex justify-center items-center py-16 px-8 rounded-xl bg-surface-bright/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(25,28,30,0.06)] border border-outline-variant/15 overflow-hidden">
+<!-- Inner soft gradient hint -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-xl pointer-events-none"></div>
+<h1 class="text-[5rem] md:text-[6rem] font-bold text-on-surface/40 font-display leading-none tracking-tighter relative z-10">
+                    0
+                </h1>
+</div>
+<p class="mt-8 text-on-surface-variant text-center font-body text-base max-w-xs tracking-wide">
+                Başlamak için arttır butonuna basabilirsin.
+            </p>
+</div>
+<!-- Action Controls -->
+<div class="w-full max-w-sm flex gap-4 justify-center items-center">
+<!-- Azalt Button (Secondary) -->
+<button class="flex-1 py-4 px-6 rounded-lg bg-surface-container-highest hover:bg-surface-dim transition-colors text-on-surface flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:-translate-y-0.5 transition-transform" data-icon="remove">remove</span>
+<span class="font-label font-medium tracking-wide">Azalt</span>
+</button>
+<!-- Arttır Button (Primary) -->
+<button class="flex-[1.5] py-4 px-6 rounded-lg bg-primary text-on-primary shadow-[0_8px_32px_rgba(70,72,212,0.2)] hover:shadow-[0_12px_40px_rgba(70,72,212,0.3)] transition-all flex items-center justify-center gap-2 relative overflow-hidden group">
+<!-- Subtle inner glow on top edge -->
+<div class="absolute top-0 left-0 right-0 h-px bg-white/20"></div>
+<span class="material-symbols-outlined font-bold group-hover:-translate-y-0.5 transition-transform" data-icon="add" data-weight="fill" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label font-bold tracking-wide">Arttır</span>
+</button>
+</div>
+<!-- Sıfırla Button (Ghost/Tertiary) -->
+<div class="mt-6 w-full max-w-sm flex justify-center">
+<button class="py-3 px-6 rounded-lg text-on-surface-variant/60 hover:text-on-surface bg-transparent hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="restart_alt">restart_alt</span>
+<span class="font-label text-sm font-medium">Sıfırla</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl fixed bottom-0 w-full rounded-t-[2rem] no-border shadow-[0_-8px_30px_rgb(0,0,0,0.04)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4">
+<div class="flex flex-col items-center justify-center bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-2xl px-5 py-2 active:scale-90 transition-transform duration-200 cursor-pointer">
+<span class="material-symbols-outlined mb-1" data-icon="timer">timer</span>
+<span class="Label-MD: text-[10px] font-medium tracking-wider uppercase">Sayaç</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-indigo-500 transition-all active:scale-90 transition-transform duration-200 cursor-pointer">
+<span class="material-symbols-outlined mb-1" data-icon="history">history</span>
+<span class="Label-MD: text-[10px] font-medium tracking-wider uppercase">Geçmiş</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-indigo-500 transition-all active:scale-90 transition-transform duration-200 cursor-pointer">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="Label-MD: text-[10px] font-medium tracking-wider uppercase">Ayarlar</span>
+</div>
+</nav>
+</body></html>
