@@ -49,10 +49,7 @@ describe('Counter types and constants', () => {
 
   it('CounterAction set type accepts a value', () => {
     const action: CounterAction = { type: 'set', value: 7 };
-    expect(action.type).toBe('set');
-    if (action.type === 'set') {
-      expect(action.value).toBe(7);
-    }
+    expect(action).toEqual({ type: 'set', value: 7 });
   });
 
   it('CounterHistoryEntry can be constructed', () => {
