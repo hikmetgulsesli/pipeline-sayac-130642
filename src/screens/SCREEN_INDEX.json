@@ -1,0 +1,38 @@
+[
+  {
+    "screenId": "55682b2a412a400790c5d3755ee000db",
+    "title": "pipeline-sayac-130642 PRD",
+    "componentName": "Pipelinesayac130642Prd",
+    "file": "src/screens/Pipelinesayac130642Prd.tsx",
+    "buttons": 0,
+    "inputs": 0,
+    "links": 0
+  },
+  {
+    "screenId": "ae5b859352b9492589140c6e34be18fd",
+    "title": "Boş Durum (İlk Açılış)",
+    "componentName": "BosDurumIlkAcilis",
+    "file": "src/screens/BosDurumIlkAcilis.tsx",
+    "buttons": 3,
+    "inputs": 0,
+    "links": 3
+  },
+  {
+    "screenId": "505b520da79a4d4cb82ed8076f851be4",
+    "title": "Hata Durumu",
+    "componentName": "HataDurumu",
+    "file": "src/screens/HataDurumu.tsx",
+    "buttons": 2,
+    "inputs": 0,
+    "links": 0
+  },
+  {
+    "screenId": "c261bef759974a7981fbf03dc1f0b2ed",
+    "title": "Ana Sayfa",
+    "componentName": "AnaSayfa",
+    "file": "src/screens/AnaSayfa.tsx",
+    "buttons": 5,
+    "inputs": 0,
+    "links": 6
+  }
+]
